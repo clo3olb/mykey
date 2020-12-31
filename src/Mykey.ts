@@ -1,21 +1,25 @@
 import * as vscode from "vscode";
 
 export default class MyKey {
-  private active: boolean;
+  private mode: "Insert" | "Mykey";
 
   constructor() {
-    this.active = false;
+    this.mode = "Insert";
   }
   public setContext = async (key: string, value: boolean | string) => {
     await vscode.commands.executeCommand("setContext", key, value);
   };
-
-  public toggleActive = async () => {
-    this.active = !this.active;
-    await this.setContext("mykey.active", this.active);
+  public updateMode = async () => {
+    await this.setContext("mykey.mode", this.mode);
   };
 
-  public isActive = () => {
-    return this.active;
+  public toggleMode = () => {
+    console.log(this.mode);
+    this.mode = this.mode === "Insert" ? "Mykey" : "Insert";
+    this.updateMode();
+  };
+
+  public getMode = () => {
+    return this.mode;
   };
 }

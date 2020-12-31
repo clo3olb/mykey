@@ -2,7 +2,8 @@
   "name": "mykey",
   "displayName": "mykey",
   "description": "better move, better code",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "publisher":"joseph",
   "engines": {
     "vscode": "^1.52.0"
   },
@@ -27,73 +28,79 @@
         "command": "mykey.moveLeft",
         "key": "j",
         "mac": "j",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.moveRight",
         "key": "l",
         "mac": "l",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.moveUp",
         "key": "i",
         "mac": "i",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.moveDown",
         "key": "k",
         "mac": "k",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.moveLeftWithSelection",
         "key": "shift+j",
         "mac": "shift+j",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.moveRightWithSelection",
         "key": "shift+l",
         "mac": "shift+l",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.moveUpWithSelection",
         "key": "shift+i",
         "mac": "shift+i",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.moveDownWithSelection",
         "key": "shift+k",
         "mac": "shift+k",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.copy",
         "key": "c",
         "mac": "c",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.paste",
         "key": "v",
         "mac": "v",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.cut",
         "key": "x",
         "mac": "x",
-        "when": "editorFocus && mykey.active"
+        "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
         "command": "mykey.toggle",
-        "key": "shift+j shift+j",
-        "mac": "shift+j shift+j",
-        "when": "editorTextFocus"
+        "key": "Escape",
+        "mac": "Escape",
+        "when": "editorTextFocus && mykey.mode == 'Insert'"
+      },
+      {
+        "command": "mykey.toggle",
+        "key": "space",
+        "mac": "space",
+        "when": "editorTextFocus && mykey.mode != 'Insert'"
       }
     ]
   },

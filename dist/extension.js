@@ -27,9 +27,20 @@ const extensionName = "mykey";
 function activate(context) {
     console.log(`${extensionName} has been started!`);
     const MyKey = new Mykey_1.default();
+    MyKey.updateMode();
+    Editor_1.default.updateEditor();
     let toggle = vscode.commands.registerCommand(`${extensionName}.toggle`, () => {
-        MyKey.toggleActive();
-        Logger_1.default.message(`${extensionName} has been toggled. STATUS = ${MyKey.isActive() ? "ON" : "OFF"}`);
+        MyKey.toggleMode();
+        const editor = Editor_1.default.editor;
+        if (editor) {
+            if (MyKey.getMode() === "Mykey") {
+                editor.options.cursorStyle = vscode.TextEditorCursorStyle.Block;
+            }
+            else {
+                editor.options.cursorStyle = vscode.TextEditorCursorStyle.Line;
+            }
+        }
+        Logger_1.default.message(`${extensionName} has been toggled. STATUS = ${MyKey.getMode() === "Mykey" ? "ON" : "OFF"}`);
     });
     let moveLeft = vscode.commands.registerCommand(`${extensionName}.moveLeft`, () => {
         Cursor_1.default.move("left", "character", 1);
@@ -98,6 +109,9 @@ function activate(context) {
             }
             Logger_1.default.message(`paste`);
         }
+        else {
+            console.error("no editor from paste");
+        }
     }));
     let cut = vscode.commands.registerCommand(`${extensionName}.cut`, () => __awaiter(this, void 0, void 0, function* () {
         const editor = Editor_1.default.editor;
@@ -116,6 +130,9 @@ function activate(context) {
                 });
             }
             Logger_1.default.message(`cut`);
+        }
+        else {
+            console.error("no editor from cut");
         }
     }));
     vscode.window.onDidChangeActiveTextEditor((e) => {
@@ -173,14 +190,18 @@ class MyKey {
         this.setContext = (key, value) => __awaiter(this, void 0, void 0, function* () {
             yield vscode.commands.executeCommand("setContext", key, value);
         });
-        this.toggleActive = () => __awaiter(this, void 0, void 0, function* () {
-            this.active = !this.active;
-            yield this.setContext("mykey.active", this.active);
+        this.updateMode = () => __awaiter(this, void 0, void 0, function* () {
+            yield this.setContext("mykey.mode", this.mode);
         });
-        this.isActive = () => {
-            return this.active;
+        this.toggleMode = () => {
+            console.log(this.mode);
+            this.mode = this.mode === "Insert" ? "Mykey" : "Insert";
+            this.updateMode();
         };
-        this.active = false;
+        this.getMode = () => {
+            return this.mode;
+        };
+        this.mode = "Insert";
     }
 }
 exports.default = MyKey;

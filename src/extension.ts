@@ -10,10 +10,20 @@ const extensionName = "mykey";
 export function activate(context: vscode.ExtensionContext) {
   console.log(`${extensionName} has been started!`);
   const MyKey = new MyKeyClass();
+  MyKey.updateMode();
+  Editor.updateEditor();
 
   let toggle = vscode.commands.registerCommand(`${extensionName}.toggle`, () => {
-    MyKey.toggleActive();
-    Logger.message(`${extensionName} has been toggled. STATUS = ${MyKey.isActive() ? "ON" : "OFF"}`);
+    MyKey.toggleMode();
+    const editor = Editor.editor;
+    if (editor) {
+      if (MyKey.getMode() === "Mykey") {
+        editor.options.cursorStyle = vscode.TextEditorCursorStyle.Block;
+      } else {
+        editor.options.cursorStyle = vscode.TextEditorCursorStyle.Line;
+      }
+    }
+    Logger.message(`${extensionName} has been toggled. STATUS = ${MyKey.getMode() === "Mykey" ? "ON" : "OFF"}`);
   });
   let moveLeft = vscode.commands.registerCommand(`${extensionName}.moveLeft`, () => {
     Cursor.move("left", "character", 1);
@@ -80,6 +90,8 @@ export function activate(context: vscode.ExtensionContext) {
         });
       }
       Logger.message(`paste`);
+    } else {
+      console.error("no editor from paste");
     }
   });
   let cut = vscode.commands.registerCommand(`${extensionName}.cut`, async () => {
@@ -100,6 +112,8 @@ export function activate(context: vscode.ExtensionContext) {
         });
       }
       Logger.message(`cut`);
+    } else {
+      console.error("no editor from cut");
     }
   });
   vscode.window.onDidChangeActiveTextEditor((e) => {
