@@ -57,65 +57,6 @@ export function activate(context: vscode.ExtensionContext) {
     Cursor.move("down", "line", 1, true);
     Logger.message(`Move Down with selection`);
   });
-  let copy = vscode.commands.registerCommand(`${extensionName}.copy`, async () => {
-    if (!Editor.editor?.selection.isEmpty) {
-      let selection = Cursor.getSelection();
-      if (selection) {
-        await Clipboard.write(selection);
-      }
-      Logger.message(`copy`);
-    }
-  });
-  let paste = vscode.commands.registerCommand(`${extensionName}.paste`, async () => {
-    const editor = Editor.editor;
-    const text = await Clipboard.read();
-    if (editor) {
-      if (editor.selection.isEmpty) {
-        editor.edit((editBuilder) => {
-          let at = editor.selection.active;
-          if (at) {
-            editBuilder.insert(at, text);
-          }
-        });
-      } else {
-        editor.edit((editBuilder) => {
-          let range = editor.selection;
-          if (range) {
-            editBuilder.replace(range, text);
-          }
-
-          // set cursor to end
-          const cursorEnd = editor.selection.end;
-          editor.selection = new vscode.Selection(cursorEnd, cursorEnd);
-        });
-      }
-      Logger.message(`paste`);
-    } else {
-      console.error("no editor from paste");
-    }
-  });
-  let cut = vscode.commands.registerCommand(`${extensionName}.cut`, async () => {
-    const editor = Editor.editor;
-    if (editor) {
-      if (!editor.selection.isEmpty) {
-        let selection = Cursor.getSelection();
-        if (selection) {
-          await Clipboard.write(selection);
-        }
-        editor.edit((editBuilder) => {
-          let range = editor.selection;
-          editBuilder.delete(range);
-
-          // set cursor to end
-          // const cursorEnd = editor.selection.end;
-          // editor.selection = new vscode.Selection(cursorEnd, cursorEnd);
-        });
-      }
-      Logger.message(`cut`);
-    } else {
-      console.error("no editor from cut");
-    }
-  });
   vscode.window.onDidChangeActiveTextEditor((e) => {
     Editor.updateEditor();
   });
@@ -129,9 +70,6 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(moveRightWithSelection);
   context.subscriptions.push(moveUpWithSelection);
   context.subscriptions.push(moveDownWithSelection);
-  context.subscriptions.push(copy);
-  context.subscriptions.push(paste);
-  context.subscriptions.push(cut);
 }
 
 // this method is called when your extension is deactivated

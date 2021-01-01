@@ -2,7 +2,7 @@
   "name": "mykey",
   "displayName": "mykey",
   "description": "better move, better code",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher":"joseph",
   "engines": {
     "vscode": "^1.52.0"
@@ -73,21 +73,81 @@
         "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
-        "command": "mykey.copy",
+        "command": "editor.action.clipboardCopyAction",
         "key": "c",
         "mac": "c",
         "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
-        "command": "mykey.paste",
+        "command": "editor.action.clipboardPasteAction",
         "key": "v",
         "mac": "v",
         "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
-        "command": "mykey.cut",
+        "command": "editor.action.clipboardCutAction",
         "key": "x",
         "mac": "x",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "editor.action.selectAll",
+        "key": "a",
+        "mac": "a",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "workbench.action.files.save",
+        "key": "s",
+        "mac": "s",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "editor.action.addSelectionToNextFindMatch",
+        "key": "d",
+        "mac": "d",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "cursorEnd",
+        "key": "e",
+        "mac": "e",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "cursorHome",
+        "key": "b",
+        "mac": "b",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "actions.find",
+        "key": "f",
+        "mac": "f",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "editor.action.moveLinesDownAction",
+        "key": "n",
+        "mac": "n",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "editor.action.moveLinesUpAction",
+        "key": "u",
+        "mac": "u",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "editor.action.copyLinesDownAction",
+        "key": "shift+n",
+        "mac": "shift+n",
+        "when": "editorFocus && mykey.mode != 'Insert'"
+      },
+      {
+        "command": "editor.action.copyLinesUpAction",
+        "key": "shift+u",
+        "mac": "shift+u",
         "when": "editorFocus && mykey.mode != 'Insert'"
       },
       {
@@ -100,7 +160,7 @@
         "command": "mykey.toggle",
         "key": "space",
         "mac": "space",
-        "when": "editorTextFocus && mykey.mode != 'Insert'"
+        "when": "mykey.mode != 'Insert'"
       }
     ]
   },
