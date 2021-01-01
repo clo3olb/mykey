@@ -1,6 +1,6 @@
-# mykey README
+# Mykey README
 
-'mykey' is a simple shortcut extension for speed coding
+Tired of moving right hand to arrow keys?
 
 ## Features
 
@@ -29,3 +29,7 @@
 ### 1.0.0
 
 Initial release
+
+### 1.0.1
+
+Added Logo
